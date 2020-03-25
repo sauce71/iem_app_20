@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+{# https://www.w3schools.com/html/html_form_input_types.asp #}
+
+<form action="{{ url_for('form_post')}}" method="post">
+    Fornavn:<br>
+    <input type="text" name="firstname" value="Mikke"><br>
+    Etternavn:<br>
+    <input type="text" name="lastname" value="Mus"><br>
+    
+    Dato:<br>
+    <input type="date" name="dato" value=""><br>
+    
+    <br>
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
