@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Form variabler</h1>
+<pre>
+{{ firstname }}
+{{ lastname }}
+{{ dato }}
+{{ ok }}
+</pre>
+<a href="{{ url_for('form') }}">Tilbake</a>
+{% endblock %}
