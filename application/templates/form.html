@@ -3,13 +3,18 @@
 {# https://www.w3schools.com/html/html_form_input_types.asp #}
 
 <form action="{{ url_for('form_post')}}" method="post">
-    Fornavn:<br>
+    <label for="firstname">Fornavn</label>
     <input type="text" name="firstname" value="Mikke"><br>
-    Etternavn:<br>
+
+    <label for="lastname">Etternavn</label>
     <input type="text" name="lastname" value="Mus"><br>
+
+    <label for="dato">Dato</label>    
+    <input type="date" name="dato" value="{{ dato }}"><br>
     
-    Dato:<br>
-    <input type="date" name="dato" value=""><br>
+    <input type="checkbox" name="ok" value="ok" checked>
+    <label for="ok">Ok</label><br>    
+
     
     <br>
     <input type="submit" value="Submit">
