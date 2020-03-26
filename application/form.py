@@ -6,6 +6,6 @@ from wtforms.fields.html5 import DateField
 
 
 class MyForm(FlaskForm):
-    firstname = StringField('Fornavn', validators=[DataRequired()], default='Tom Øyvind')
+    firstname = StringField('Fornavn', validators=[DataRequired()], render_kw={"placeholder": "Ditt fornavn"})
     lastname = StringField('Etternavn', validators=[DataRequired()], default='Hogstad')
     dato = DateField('Dato', default=date.today())
