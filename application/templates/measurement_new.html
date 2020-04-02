@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Registrer ny måling</h1>
+<a href="{{ url_for('index')}}">Tilbake</a>
+{% if message %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+
+{% if form.errors %}
+<div class="alert alert-danger" role="alert">
+    <ul class="errors">
+        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+        {% for error in field_errors %}
+        <li>{{ form[field_name].label }}: {{ error }}</li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form method="POST" action="{{ url_for('measurement_new') }}">
+    {{ form.csrf_token }}
+
+    <div class="form-group row">
+        <div class="col-md-2">{{ form.unit_id.label }}</div>
+        <div class="col-md-3">{{ form.unit_id(size=20) }}</div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-2">{{ form.registered.label }}</div>
+        <div class="col-md-3">{{ form.registered(size=20) }}</div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-2">{{ form.bmp280_temperature.label }}</div>
+        <div class="col-md-3">{{ form.bmp280_temperature(size=20) }}</div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-2">{{ form.bmp280_pressure.label }}</div>
+        <div class="col-md-3">{{ form.bmp280_pressure(size=20) }}</div>
+    </div>
+
+    <input type="submit" value="Lagre">
+</form>
+{% endblock %}

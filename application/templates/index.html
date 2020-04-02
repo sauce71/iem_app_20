@@ -1,8 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Startsiden</h1>
-<a href="{{ url_for('wtform') }}">Forms</a>
+<h1>Innemiljø</h1>
+<p>
+<a href="{{ url_for('measurement_new') }}">Ny måling</a>
+</p>
+<h2>Målinger</h2>
+<div class="table-responsive ">
+<table class="table table-striped">
+    <tr>
+        <th scope="col">Tid</th>
+        <th scope="col">BMP280 Temp.</th>
+        <th scope="col">BMP280 Trykk</th>
+    </tr>
+{% for m in measurements %}
+<tr>
+    <th scope="row">{{ m.registered }}</th>
+    <td>{{ m.bmp280_temperature}}</td>
+    <td>{{ m.bmp280_pressure}}</td>
+</tr>
+{% endfor %}
+
+</table>
+</div>
+
+
 
 
 {% endblock %}

@@ -9,15 +9,19 @@ def create_app():
         # a default secret that should be overridden by instance config
         SECRET_KEY="dev",
     )
-
     # load the instance config, if it exists
-    #app.config.from_pyfile("config.py", silent=False)
+    app.config.from_pyfile("config.py", silent=False)
 
     # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
+    # Initialiserer db modulen vår
+    from . import db
+    db.init_app(app)
+
 
     #piapp.add_url_rule("/", endpoint="index")
 
