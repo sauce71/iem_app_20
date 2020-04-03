@@ -14,6 +14,7 @@ CREATE TABLE measurement (
   registered TEXT NOT NULL, 
   bmp280_temperature NUMBER NOT NULL,
   bmp280_pressure NUMBER NOT NULL,
+  
   created TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (unit_id) REFERENCES unit (id)
 );

@@ -60,7 +60,7 @@ def measurement_new():
         if not form.errors:
             # Lager nye tilfeldige verdier
             form.registered.data = datetime.now()
-            form.bmp280_temperature.data=randint(20,30)
-            form.bmp280_pressure.data=randint(950, 1100)
+            form.bmp280_temperature.data = randint(20,30)
+            form.bmp280_pressure.data = randint(950, 1100)
                 
     return render_template('measurement_new.html', form=form, message=message)

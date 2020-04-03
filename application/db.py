@@ -84,7 +84,8 @@ def select_measurements():
     db = get_db()
     c = db.cursor()
     c.execute('''
-        SELECT * FROM measurement ORDER BY registered DESC
+        SELECT * FROM measurement 
+        ORDER BY registered DESC
         '''
         )
     return c.fetchall()
