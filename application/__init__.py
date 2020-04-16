@@ -37,4 +37,4 @@ def create_app():
 
 app = create_app()
 
-from . import views 
+from . import views, api 
