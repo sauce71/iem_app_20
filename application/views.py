@@ -51,7 +51,11 @@ def measurement_new():
             form.unit_id.data,
             form.registered.data,
             form.bmp280_temperature.data,
-            form.bmp280_pressure.data
+            form.bmp280_pressure.data,
+            form.si7021_temperature.data,
+            form.si7021_humidity.data,
+            form.ccs811_tvoc.data,
+            form.sds011_dust.data,
         )
         message = 'Ny måling lagret med id {}'.format(new_id)
         # Ved å redirigere til seg selv så får vi nye tilfeldige verdier
@@ -60,7 +64,11 @@ def measurement_new():
         if not form.errors:
             # Lager nye tilfeldige verdier
             form.registered.data = datetime.now()
-            form.bmp280_temperature.data = randint(20,30)
-            form.bmp280_pressure.data = randint(950, 1100)
+            form.bmp280_temperature.data=randint(20,30)
+            form.bmp280_pressure.data=randint(950, 1100)
+            form.si7021_temperature.data=randint(950, 1100)
+            form.si7021_humidity.data=randint(950, 1100)
+            form.ccs811_tvoc.data=randint(950, 1100)
+            form.sds011_dust.data=randint(950, 1100)
                 
     return render_template('measurement_new.html', form=form, message=message)

@@ -63,7 +63,7 @@ def init_app(app):
     app.cli.add_command(init_db_command)
 
 
-def add_measurement(unit_id, registered, bmp280_temperature, bmp280_pressure):
+def add_measurement(unit_id, registered, bmp280_temperature, bmp280_pressure, si7021_temperature, si7021_humidity, ccs811_tvoc, sds011_dust):
     '''
     Legger til en post i tabellen med målinge
     '''
@@ -72,10 +72,10 @@ def add_measurement(unit_id, registered, bmp280_temperature, bmp280_pressure):
     # Vi skriver inn SQL koden i en string som kan gå over flere linjer
     # Vi bruker parameter for å unngå SQL injection hacks
     c.execute('''
-        INSERT INTO measurement(unit_id, registered, bmp280_temperature, bmp280_pressure)
-        VALUES (?,?,?,?)
+        INSERT INTO measurement(unit_id, registered, bmp280_temperature, bmp280_pressure, si7021_temperature, si7021_humidity, ccs811_tvoc, sds011_dust)
+        VALUES (?,?,?,?,?,?,?,?)
         ''', 
-        (unit_id, registered, bmp280_temperature, bmp280_pressure) # tuple eller liste, () eller []
+        (unit_id, registered, bmp280_temperature, bmp280_pressure, si7021_temperature, si7021_humidity, ccs811_tvoc, sds011_dust) # tuple eller liste, () eller []
         )
     db.commit()
     return c.lastrowid
@@ -84,8 +84,7 @@ def select_measurements():
     db = get_db()
     c = db.cursor()
     c.execute('''
-        SELECT * FROM measurement 
-        ORDER BY registered DESC
+        SELECT * FROM measurement ORDER BY registered DESC
         '''
         )
     return c.fetchall()

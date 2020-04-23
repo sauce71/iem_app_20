@@ -40,6 +40,22 @@
         <div class="col-md-2">{{ form.bmp280_pressure.label }}</div>
         <div class="col-md-3">{{ form.bmp280_pressure(size=20) }}</div>
     </div>
+    <div class="form-group row">
+        <div class="col-md-2">{{ form.si7021_temperature.label }}</div>
+        <div class="col-md-3">{{ form.si7021_temperature(size=20) }}</div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-2">{{ form.si7021_humidity.label }}</div>
+        <div class="col-md-3">{{ form.si7021_humidity(size=20) }}</div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-2">{{ form.ccs811_tvoc.label }}</div>
+        <div class="col-md-3">{{ form.ccs811_tvoc(size=20) }}</div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-2">{{ form.sds011_dust.label }}</div>
+        <div class="col-md-3">{{ form.sds011_dust(size=20) }}</div>
+    </div>
 
     <input type="submit" value="Lagre">
 </form>

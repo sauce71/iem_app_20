@@ -6,18 +6,26 @@
 <a href="{{ url_for('measurement_new') }}">Ny måling</a>
 </p>
 <h2>Målinger</h2>
-<div class="table-responsive">
+<div class="table-responsive ">
 <table class="table table-striped">
     <tr>
         <th scope="col">Tid</th>
         <th scope="col">BMP280 Temp.</th>
+        <th scope="col">Si7021 Temp</th>
         <th scope="col">BMP280 Trykk</th>
+        <th scope="col">Si7021 Fuktighet</th>
+        <th scope="col">CCS811 TVOC</th>
+        <th scope="col">SDS011 Støv</th>
     </tr>
 {% for m in measurements %}
 <tr>
     <th scope="row">{{ m.registered }}</th>
     <td>{{ m.bmp280_temperature}}</td>
     <td>{{ m.bmp280_pressure}}</td>
+    <td>{{ m.si7021_temperature}}</td>
+    <td>{{ m.si7021_humidity}}</td>
+    <td>{{ m.ccs811_tvoc}}</td>
+    <td>{{ m.sds011_dust}}</td>
 </tr>
 {% endfor %}
 

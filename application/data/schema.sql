@@ -13,8 +13,11 @@ CREATE TABLE measurement (
   unit_id INTEGER NOT NULL,
   registered TEXT NOT NULL, 
   bmp280_temperature NUMBER NOT NULL,
-  bmp280_pressure NUMBER NOT NULL,
-  
+  bmp280_pressure NUMBER NOT NULL, 
+  si7021_temperature NUMBER NOT NULL, 
+  si7021_humidity NUMBER NOT NULL, 
+  ccs811_tvoc NUMBER NOT NULL,
+  sds011_dust NUMBER NOT NULL,
   created TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (unit_id) REFERENCES unit (id)
 );

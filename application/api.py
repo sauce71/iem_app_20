@@ -17,7 +17,11 @@ def api_post_data():
         data['unit_id'],
         data['registered'],
         data['bmp280_temperature'],
-        data['bmp280_pressure']
+        data['bmp280_pressure'],
+        data['si7021_temperature'],
+        data['si7021_humidity'],
+        data['ccs811_tvoc'],
+        data['sds011_dust']
     )
     print('Data i Flask App:', data)
     #else:

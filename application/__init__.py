@@ -1,7 +1,6 @@
 import os
 from flask import Flask, send_from_directory
 
-
 def create_app():
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__, instance_relative_config=True)

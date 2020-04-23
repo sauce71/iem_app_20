@@ -17,6 +17,10 @@ class MeasurementForm(FlaskForm):
     registered = DateTimeField('Dato/Tid', default=datetime.now(), validators=[DataRequired()])
     bmp280_temperature = FloatField('BME280 Temperatur', validators=[DataRequired()])
     bmp280_pressure = FloatField('BME280 Trykk', validators=[DataRequired()])
+    si7021_temperature = FloatField('Si7021 Temperatur', validators=[DataRequired()])
+    si7021_humidity = FloatField('Si7021 Fuktighet', validators=[DataRequired()])
+    ccs811_tvoc = FloatField('CCS811 TVOC', validators=[DataRequired()])
+    sds011_dust = FloatField('SDS011 Støv', validators=[DataRequired()])
 
 
 
