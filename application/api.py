@@ -29,3 +29,19 @@ def api_post_data():
     #    abort(401)
     return 'Data received!'
 
+@app.route('/api/test', methods=('POST',))
+def api_test():
+    """
+    Start på api for å motta data fra ESP
+    Data sendes som json
+    """
+    data = request.json
+ 
+    print('Data i Flask App:', data)
+    return 'Data received!'
+
+
+
+
+
+
