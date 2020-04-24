@@ -7,4 +7,6 @@ while not sta_if.isconnected():
     time.sleep(0.1)
 print(sta_if.ifconfig())
 
+
+
 # 192.168.68.143
