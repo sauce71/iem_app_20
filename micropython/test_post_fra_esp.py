@@ -1,6 +1,6 @@
 import urequests
 from random import randint
-#from datetime import datetime
+
 #from test_post_fra_esp import test
 
 
@@ -24,6 +24,6 @@ def test():
         data['sds011_dust'] = randint(950, 1100)
         #print('Data som sendes til Flask App:', data)
         header_data = { "content-type": 'application/json; charset=utf-8', "devicetype": '1'}
-        r = urequests.post('http://192.168.68.119:5000/api/post_data', json=data, headers=header_data)
+        r = urequests.post('http://10.13.37.120:5000/api/post_data', json=data, headers=header_data)
         print(r.text)
 
