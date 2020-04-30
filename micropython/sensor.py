@@ -1,10 +1,13 @@
 # Write your code here :-)
 import time
-from machine import I2C, Pin
+from machine import I2C, Pin, UART
 import si7021
 import bmp280
 import CCS811
+import sds011
 import urequests
+
+SEND_INTERVAL = 30
 
 i2c = I2C(0, scl=Pin(22), sda=Pin(21))
 
@@ -12,6 +15,9 @@ i2c = I2C(0, scl=Pin(22), sda=Pin(21))
 si7021_sensor = si7021.Si7021(i2c)
 bmp280_sensor = bmp280.BMP280(i2c)
 ccs811_sensor = CCS811.CCS811(i2c)
+uart = UART(1, baudrate=9600, bits=8, parity=None, stop=1, tx=12, rx=14, rts=-1, cts=-1, txbuf=256, rxbuf=256, timeout=5000, timeout_char=2)
+dust_sensor = sds011.SDS011(uart)
+
 time.sleep(2)
 
 # from sensor import read_sensors, post_sensors_data
@@ -28,7 +34,8 @@ def read_sensors():
     if ccs811_sensor.data_ready():
         data['ccs811_tvoc'] = ccs811_sensor.tVOC
         # TODO: Ta med CO2
-    data['sds011_dust'] = 0
+    dust_sensor.read()
+    data['sds011_dust'] = dust_sensor.pm25
     #TODO Ta med PM2.5 og PM10
     return data
 
@@ -57,14 +64,14 @@ def monitor_sensors():
         series['ccs811_tvoc'].append(data['ccs811_tvoc'])
         series['sds011_dust'].append(data['sds011_dust'])
         time.sleep(1)
-        if len(series['bmp280_temperature']) >= 60:
+        if len(series['bmp280_temperature']) >= SEND_INTERVAL:
             post_data = {}
-            post_data['bmp280_temperature'] = sorted(series['bmp280_temperature'])[30]
-            post_data['bmp280_pressure'] = sorted(series['bmp280_pressure'])[30]
-            post_data['si7021_temperature'] = sorted(series['si7021_temperature'])[30]
-            post_data['si7021_humidity'] = sorted(series['si7021_humidity'])[30]
-            post_data['ccs811_tvoc'] = sorted(series['ccs811_tvoc'])[30]
-            post_data['sds011_dust'] = sorted(series['sds011_dust'])[30]
+            post_data['bmp280_temperature'] = sorted(series['bmp280_temperature'])[SEND_INTERVAL // 2]
+            post_data['bmp280_pressure'] = sorted(series['bmp280_pressure'])[SEND_INTERVAL // 2]
+            post_data['si7021_temperature'] = sorted(series['si7021_temperature'])[SEND_INTERVAL // 2]
+            post_data['si7021_humidity'] = sorted(series['si7021_humidity'])[SEND_INTERVAL // 2]
+            post_data['ccs811_tvoc'] = sorted(series['ccs811_tvoc'])[SEND_INTERVAL // 2]
+            post_data['sds011_dust'] = sorted(series['sds011_dust'])[SEND_INTERVAL // 2]
             post_sensors_data(post_data)
             print(post_data)
             series['bmp280_temperature'] = []

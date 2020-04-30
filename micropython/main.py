@@ -11,6 +11,8 @@
 # Main Code goes here, wlan is a working network.WLAN(STA_IF) instance.
 #print("ESP OK")
 import net
+from sensor import monitor_sensors
+monitor_sensors()
 
 #from net import sta_if
 #sta_if.ifconfig()
