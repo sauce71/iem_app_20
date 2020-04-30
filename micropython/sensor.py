@@ -33,11 +33,50 @@ def read_sensors():
     return data
 
 def post_sensors_data(data):
-        data['unit_id'] = 1
-        data['registered'] = ''
-        #print('Data som sendes til Flask App:', data)
-        header_data = { "content-type": 'application/json; charset=utf-8', "devicetype": '1'}
-        r = urequests.post('http://10.13.37.120:5000/api/post_data', json=data, headers=header_data)
+    data['unit_id'] = 1
+    data['registered'] = ''
+    #print('Data som sendes til Flask App:', data)
+    header_data = { "content-type": 'application/json; charset=utf-8', "devicetype": '1'}
+    r = urequests.post('http://10.13.37.120:5000/api/post_data', json=data, headers=header_data)
+
+# from sensor import monitor_sensors
+def monitor_sensors():
+    series = {}
+    series['bmp280_temperature'] = []
+    series['bmp280_pressure'] = []
+    series['si7021_temperature'] = []
+    series['si7021_humidity'] = []
+    series['ccs811_tvoc'] = []
+    series['sds011_dust'] = []
+    while True:
+        data = read_sensors()
+        series['bmp280_temperature'].append(data['bmp280_temperature'])
+        series['bmp280_pressure'].append(data['bmp280_pressure'])
+        series['si7021_temperature'].append(data['si7021_temperature'])
+        series['si7021_humidity'].append(data['si7021_humidity'])
+        series['ccs811_tvoc'].append(data['ccs811_tvoc'])
+        series['sds011_dust'].append(data['sds011_dust'])
+        time.sleep(1)
+        if len(series['bmp280_temperature']) >= 60:
+            post_data = {}
+            post_data['bmp280_temperature'] = sorted(series['bmp280_temperature'])[30]
+            post_data['bmp280_pressure'] = sorted(series['bmp280_pressure'])[30]
+            post_data['si7021_temperature'] = sorted(series['si7021_temperature'])[30]
+            post_data['si7021_humidity'] = sorted(series['si7021_humidity'])[30]
+            post_data['ccs811_tvoc'] = sorted(series['ccs811_tvoc'])[30]
+            post_data['sds011_dust'] = sorted(series['sds011_dust'])[30]
+            post_sensors_data(post_data)
+            print(post_data)
+            series['bmp280_temperature'] = []
+            series['bmp280_pressure'] = []
+            series['si7021_temperature'] = []
+            series['si7021_humidity'] = []
+            series['ccs811_tvoc'] = []
+            series['sds011_dust'] = []
+
+
+
+
 
 
 
