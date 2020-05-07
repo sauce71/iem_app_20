@@ -44,7 +44,7 @@ def post_sensors_data(data):
     data['registered'] = ''
     #print('Data som sendes til Flask App:', data)
     header_data = { "content-type": 'application/json; charset=utf-8', "devicetype": '1'}
-    r = urequests.post('http://10.13.37.120:5000/api/post_data', json=data, headers=header_data)
+    r = urequests.post('https://svs-tom2802-2.azurewebsites.net/api/post_data', json=data, headers=header_data)
 
 # from sensor import monitor_sensors
 def monitor_sensors():
