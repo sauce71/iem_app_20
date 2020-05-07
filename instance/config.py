@@ -1,3 +1,7 @@
 SECRET_KEY = 'Endres i prod'
-DATABASE = 'iem.db'
+#DATABASE = 'iem.db'
 API_KEY = 'hemmelig'
+DB_HOSTNAME='vg3data.mysql.database.azure.com'
+DB_DATABASE='tom2802'
+DB_USER='tom2802@vg3data'
+DB_PASSWORD='Admin:1234'

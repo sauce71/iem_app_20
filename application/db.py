@@ -14,6 +14,7 @@ import sqlite3
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
+import mysql.connector
 
 
 def get_db():
@@ -23,11 +24,26 @@ def get_db():
     hver gang en kaller get_db()
     """
     if 'db' not in g:
+        '''
         g.db = sqlite3.connect(
             os.path.join(current_app.instance_path, current_app.config['DATABASE']),
             detect_types=sqlite3.PARSE_DECLTYPES
         )
         g.db.row_factory = sqlite3.Row
+        '''
+        config = {
+            'host': current_app.config['DB_HOSTNAME'],
+            'user': current_app.config['DB_USER'],
+            'password': current_app.config['DB_PASSWORD'],
+            'database': current_app.config['DB_DATABASE'],
+            'ssl_verify_cert': False,
+            'port' : 3306
+        }
+    
+
+        g.db = mysql.connector.connect(**config)
+        print("Connection established")
+
     return g.db
 
 
