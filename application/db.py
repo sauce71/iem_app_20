@@ -89,7 +89,7 @@ def add_measurement(unit_id, registered, bmp280_temperature, bmp280_pressure, si
     # Vi bruker parameter for å unngå SQL injection hacks
     c.execute('''
         INSERT INTO measurement(unit_id, registered, bmp280_temperature, bmp280_pressure, si7021_temperature, si7021_humidity, ccs811_tvoc, sds011_dust)
-        VALUES (?,?,?,?,?,?,?,?)
+        VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
         ''', 
         (unit_id, registered, bmp280_temperature, bmp280_pressure, si7021_temperature, si7021_humidity, ccs811_tvoc, sds011_dust) # tuple eller liste, () eller []
         )
@@ -98,7 +98,7 @@ def add_measurement(unit_id, registered, bmp280_temperature, bmp280_pressure, si
 
 def select_measurements():
     db = get_db()
-    c = db.cursor()
+    c = db.cursor(dictionary=True)
     c.execute('''
         SELECT * FROM measurement ORDER BY created DESC
         '''
