@@ -7,7 +7,7 @@ import CCS811
 import sds011
 import urequests
 
-SEND_INTERVAL = 30
+SEND_INTERVAL = 60
 
 i2c = I2C(0, scl=Pin(22), sda=Pin(21))
 
@@ -44,7 +44,10 @@ def post_sensors_data(data):
     data['registered'] = ''
     #print('Data som sendes til Flask App:', data)
     header_data = { "content-type": 'application/json; charset=utf-8', "devicetype": '1'}
-    r = urequests.post('https://svs-tom2802-2.azurewebsites.net/api/post_data', json=data, headers=header_data)
+    try:
+        r = urequests.post('https://svs-tom2802-2.azurewebsites.net/api/post_data', json=data, headers=header_data)
+    finally:
+        pass
 
 # from sensor import monitor_sensors
 def monitor_sensors():
